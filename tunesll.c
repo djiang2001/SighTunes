@@ -11,7 +11,7 @@ struct song_node{
 
 void print_song(struct song_node *head){
   while(head){
-    printf("[%s : %s] |", head->name,head->artist};
+    printf("[%s : %s] |", head->name,head->artist);
     head++;
   }
 }
@@ -24,12 +24,44 @@ struct song_node* insert_front(struct song_node * head,char*n,char*a){
   return new_node;
 }
 
-
-struct song_node* f_song(struct song_node*, char *artist,char *song){
-  
-
-
+struct song_node* find_song(struct song_node*head, char *songname,char *artistname){
+  struct song_node *find;
+  strcpy(find->artist,artistname);
+  strcpy(find->name,songname);
+  while(cmpsong(head,find)){
+    head = head->next;
+  }
+  return head;
 }
+
+struct song_node* find_artist(struct song_node*head,char *artistname){
+  while(strcmp(head->artist,artistname)){
+    head=head->next;
+  }
+  return head;
+}
+
+struct song_node* rand_song(struct song_node*head){
+  srand(time(NULL));
+  int r = rand()*songsize(head);
+  while(r){
+    head = head->next;
+    r--;
+  }
+  return head;
+}
+
+struct song_node* remove_song(struct song_node* head,char*songname,char*artistname){
+  struct song_node* find;
+  strcpy(find->name,songname);
+  strcpy(find->artist,artistname);
+  while(cmpsong(head,find)){
+
+
+  }
+  2
+}
+
 struct song_node* free_list(struct song_node*head){
   struct node *tmp;
   while(head){
@@ -40,9 +72,18 @@ struct song_node* free_list(struct song_node*head){
   return head;
 }
 
-int compto(struct song_node * s1,struct song_node * s2){
+int cmpsong(struct song_node * s1,struct song_node * s2){
+  int cmpname = strcmp(s1->name,s2->name);
+  int cmpartist = strcmp(s1->artist,s2->artist);
+  return cmpname - cmpartist;
+}
 
-
-
+int songsize(struct song_node * head){
+  int count = 0;
+  while(head){
+    count++;
+    head = head->next;
+  }
+  return count;
 }
 
