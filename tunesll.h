@@ -1,3 +1,6 @@
+#ifndef TUNESLL_H
+#define TUNESLL_H
+
 struct song_node{ 
   char name[100];
   char artist[100];
@@ -20,4 +23,5 @@ struct song_node* free_list(struct song_node*head);
 
 int cmpsong(struct song_node * s1,struct song_node * s2);
 
-int listsize(struct song_node * head);
+int songsize(struct song_node * head);
+#endif

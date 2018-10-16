@@ -9,6 +9,22 @@ struct song_node{
   struct song_node *next;
 };
 
+int cmpsong(struct song_node * s1,struct song_node * s2){
+  int cmpname = strcmp(s1->name,s2->name);
+  int cmpartist = strcmp(s1->artist,s2->artist);
+  return cmpname - cmpartist;
+}
+
+int songsize(struct song_node * head){
+  int count = 0;
+  while(head){
+    count++;
+    head = head->next;
+  }
+  return count;
+}
+
+//Linked List functions//
 void print_song(struct song_node *head){
   while(head){
     printf("[%s : %s] |", head->name,head->artist);
@@ -59,11 +75,11 @@ struct song_node* remove_song(struct song_node* head,char*songname,char*artistna
 
 
   }
-  2
+  
 }
 
 struct song_node* free_list(struct song_node*head){
-  struct node *tmp;
+  struct song_node *tmp;
   while(head){
     tmp = head;
     head = head->next;
@@ -72,18 +88,5 @@ struct song_node* free_list(struct song_node*head){
   return head;
 }
 
-int cmpsong(struct song_node * s1,struct song_node * s2){
-  int cmpname = strcmp(s1->name,s2->name);
-  int cmpartist = strcmp(s1->artist,s2->artist);
-  return cmpname - cmpartist;
-}
 
-int songsize(struct song_node * head){
-  int count = 0;
-  while(head){
-    count++;
-    head = head->next;
-  }
-  return count;
-}
 
