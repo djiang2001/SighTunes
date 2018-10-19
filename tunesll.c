@@ -11,9 +11,12 @@ struct song_node{
 
 //Helper//
 int songcmp(struct song_node * s1,struct song_node * s2){
-  int cmpname = strcmp(s1->name,s2->name);
-  int cmpartist = strcmp(s1->artist,s2->artist);
-  return cmpname - cmpartist;
+   //First, check the artist.
+  if (strcmp(arg1->artist,arg2->artist)){
+    return strcmp(arg1->artist,arg2->artist);
+  }
+  //If they are the same artist, THEN compare song.
+  return strcmp(arg1->name,arg2->name);
 }
 
 int songsize(struct song_node * head){
@@ -42,21 +45,24 @@ struct song_node* insert_front(struct song_node *head,char *name,char *artist){
 }
 
 struct song_node *insert_order(struct song_node *head,char *name,char*artist){
-  struct song_node *new_node = malloc(sizeof(struct song_node));
-  strcpy(new_node->name,name);
-  strcpy(new_node->artist,artist);
-  
-  if(songcmp(new_node,head)<0){
-    new_node->next = head;
-    return new_node;
+  struct node * new_node = malloc(sizeof(struct aong_node));
+  strncpy(new_node->name,_name,100);
+  strncpy(new_node->artist,_artist,100);
+  front->next = head;
+  struct song_node * prev = head;
+  struct song_node * cur = prev->next;
+  while (cur != NULL){
+    if (songcmp(new_node,cur) < 0){
+      new_node -> next = cur;
+      prev->next = new_node;
+      return head;
+    }
+    prev = cur;
+    cur = cur->next;
   }
-
-  struct song_node *curr = head;
-  if(curr && (songcmp(new_node,head->next) > 0)){
-
-
-  }
-
+  //In case it's the last alphabetically in the linked list.
+  prev->next = new_node;
+  return head;
 }
 
 struct song_node* find_song(struct song_node*head, char *name,char *artist){
