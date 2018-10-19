@@ -42,26 +42,26 @@ struct song_node* insert_front(struct song_node *head,char *name,char *artist){
 }
 
 struct song_node *insert_order(struct song_node *head,char *name,char*artist){
-  struct song_node *new_node = mallc(sizeof(struct song_node));
+  struct song_node *new_node = malloc(sizeof(struct song_node));
   strcpy(new_node->name,name);
   strcpy(new_node->artist,artist);
   
-  if(songcmp(head,new_node)>0){
+  if(songcmp(new_node,head)<0){
     new_node->next = head;
     return new_node;
   }
 
   struct song_node *curr = head;
-  while(curr){
+  if(curr && (songcmp(new_node,head->next) > 0)){
 
 
   }
 
 }
 
-struct song_node* find_song(struct song_node*head, char *name,char *name){
+struct song_node* find_song(struct song_node*head, char *name,char *artist){
   struct song_node *find;
-  strcpy(find->artist,name);
+  strcpy(find->artist,artist);
   strcpy(find->name,name);
   while(songcmp(head,find)){
     head = head->next;
@@ -90,13 +90,18 @@ struct song_node* remove_song(struct song_node* head,char*name,char*artist){
   strcpy(find->name,name);
   strcpy(find->artist,artist);
   struct song_node *tmp;
-  if(!songcomp(head,find)){
+  struct song_node *after;
+  struct song_node *old_head;
+  old_head = head;
+  if(!songcmp(head->next,find)){
     tmp = head->next;
-    free(head);
-    return tmp;
+    after = tmp->next;
+    free(tmp);
+    head->next = after;
+  }else{
+    head = head->next;
   }
-
-  
+  return old_head;
 }
 
 struct song_node* free_list(struct song_node*head){
