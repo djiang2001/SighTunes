@@ -114,5 +114,20 @@ struct song_node* free_list(struct song_node*head){
   return head;
 }
 
-
+void shuffle_print(struct song_node* head){
+  int size = songsize(head);
+  int nums[size];
+  for (int i = 0; i < size; i++){
+    nums[i] = rand() % size;
+  }
+  for (int i = 0; i < size; i++){
+    struct song_node * node = head;
+    int j = 0; 
+    while (nums[i] != j){
+      node = next;
+    }
+    printf("[%s : %s]",node->name,node->artist);
+  }
+}
+  
 
